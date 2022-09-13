@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import logo from './logo.svg';
 import './App.css';
 import axios from "axios";
 
@@ -24,23 +23,34 @@ class App extends Component {
   }
 
   handleCheckClick(checked) {
-    console.log(checked)
-    const todos = this.state.todos.map((item) => {
-      if (item.id === checked.id) {
-        const updatedItem = {
-          ...item,
-          done: !item.done,
-        };
-
-        return updatedItem;
-      }
-
-      return item;
-    });
-
-    this.setState({ todos: todos });
-  }
+    // console.log(checked)
+    axios.patch('http://127.0.0.1:8000/api/v1/todos/' + checked.id + '/',
+      {
+        "done": !checked.done
+      },
+    )
+    .then((response) => {
+      this.getTodos()
+        // const todos = this.state.todos.map((item) => {
+        //   if (item.id === checked.id) {
+        //     const updatedItem = {
+        //       ...item,
+        //       done: !item.done,
+        //     };
     
+        //     return updatedItem;
+        //   }
+    
+        //   return item;
+        // });
+    
+        // this.setState({ todos: todos });
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  }
+
 
   render() {
     return (
