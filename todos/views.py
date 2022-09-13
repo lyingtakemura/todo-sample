@@ -12,4 +12,4 @@ class TodoViewSet(
     mixins.DestroyModelMixin
 ):
     serializer_class = TodoSerializer
-    queryset = Todo.objects.all()
+    queryset = Todo.objects.all().order_by("-created_at")
